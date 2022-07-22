@@ -5,14 +5,16 @@ const createHttpError = require('http-errors')
 const mongoose = require('mongoose')
 const path = require('path')
 
-dotenv.config({path:'./.env'})
+dotenv.config({path:'.env'})
 const ShortUrl = require('./models/url.model')
+const { type } = require('os')
 const DB=process.env.DATABASE;
 const app = express()
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
+console.log(DB);
+console.log(typeof(DB));
 mongoose
   .connect(DB, {
     
