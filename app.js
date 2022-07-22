@@ -1,4 +1,5 @@
 const express = require('express')
+const bodyParser = require("body-parser");
 const shortId = require('shortid')
 const dotenv=require('dotenv')
 const createHttpError = require('http-errors')
@@ -12,7 +13,7 @@ const DB=process.env.DATABASE;
 const app = express()
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({extended: true}));
 console.log(DB);
 console.log(typeof(DB));
 mongoose
