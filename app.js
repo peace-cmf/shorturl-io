@@ -5,22 +5,23 @@ const dotenv=require('dotenv')
 const createHttpError = require('http-errors')
 const mongoose = require('mongoose')
 const path = require('path')
-
+const PORT=process.env.PORT||8181;
 dotenv.config({path:'.env'})
 const ShortUrl = require('./models/url.model')
-const { type } = require('os')
+
 const DB=process.env.DATABASE;
 const app = express()
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
-app.use(bodyParser.urlencoded({extended: true}));
-console.log(DB);
+app.use(express.urlencoded({extended: true}));
+//console.log(DB);
 console.log(typeof(DB));
 mongoose
-  .connect(DB, {
+  .connect(DB,{
     
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useUnifiedTopology:true,
+    
    
   })
   
@@ -76,5 +77,5 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500)
   res.render('index', { error: err.message })
 })
-const PORT=process.env.PORT||8181;
+
 app.listen(PORT, () => console.log(`🌏 on port ${PORT}`))
